@@ -7,16 +7,16 @@
       <div class="header__menu">
         <ul>
           <li>
-            <nuxt-link to="/">О комплексе</nuxt-link>
+            <nuxt-link exact active-class="active-link" to="/">О комплексе</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/features">Особенности</nuxt-link>
+            <nuxt-link active-class="active-link" to="/features">Особенности</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/features">Пентхаусы</nuxt-link>
+            <nuxt-link active-class="active-link" to="/penthouses">Пентхаусы</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/features">Выбрать квартиру</nuxt-link>
+            <nuxt-link active-class="active-link" to="/apartments">Выбрать квартиру</nuxt-link>
           </li>
         </ul>
       </div>
@@ -87,6 +87,18 @@
       }
     }
 
+    .active-link{
+      &::before{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: #D88F5E;
+        bottom: -7px;
+        left: 0;
+      }
+    }
+
     &__menu {
       max-width: 558px;
       width: 100%;
@@ -96,11 +108,13 @@
 
         li {
           a {
+            position: relative;
             font-family: 'Gilroy', sans-serif;
             font-weight: bold;
             font-size: 12px;
             line-height: 15px;
             color: #262525;
+            padding: 0 6px;
           }
         }
       }

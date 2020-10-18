@@ -70,8 +70,32 @@
         justify-content: space-between;
 
         li {
+          padding: 0 4px;
           font-size: 13px;
           cursor: pointer;
+          position: relative;
+          color: #505050;
+          z-index: 1;
+          max-width: max-content;
+
+          &::before{
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 0;
+            z-index: -1;
+            background: #EBD8CC;
+            width: 100%;
+            height: 9px;
+            opacity: 0;
+            transition: opacity .5s;
+          }
+
+          &:hover{
+            &::before{
+              opacity: 1;
+            }
+          }
         }
       }
     }
