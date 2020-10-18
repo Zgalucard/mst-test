@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="footer__container">
       <div class="footer__text">
-        <h1>Разработано в MST      |      2018</h1>
+        <h1>Разработано в MST</h1><h1>|</h1><h1>2018</h1>
       </div>
     </div>
   </div>
@@ -23,10 +23,7 @@
 
     text-transform: uppercase;
     &__container {
-      /*max-width: 1800px;*/
       width: 100%;
-      /*padding: 0 60px;*/
-      padding: 0 60px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -35,6 +32,10 @@
     }
 
     &__text{
+      display: flex;
+      min-width: 205px;
+      justify-content: space-between;
+
       h1{
         font-weight: 300;
         font-size: 13px;

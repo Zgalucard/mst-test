@@ -1,11 +1,23 @@
 @import "null.scss";
 
-
-
 .wrapper{
-  max-width: 1920px;
+  max-width: 2040px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container{
+  background: #F0F0F0;
+  max-width: 1800px;
   width: 100%;
   margin: 0 auto;
+  flex: 1 1 auto;
+  display: flex;
 }
 
 h1{
@@ -15,7 +27,13 @@ h1{
   color: #262525;
 }
 
-p{
+span{
+  font-family: 'Gilroy', sans-serif;
+  line-height: 1.2;
+  color: #262525;
+}
+
+p, li{
   font-family: 'Roboto', sans-serif;
   line-height: 1.2;
   color: #262525;

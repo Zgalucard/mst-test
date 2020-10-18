@@ -7,16 +7,16 @@
       <div class="header__menu">
         <ul>
           <li>
-            <a href="">О комплексе</a>
+            <nuxt-link to="/">О комплексе</nuxt-link>
           </li>
           <li>
-            <a href="">Особенности</a>
+            <nuxt-link to="/features">Особенности</nuxt-link>
           </li>
           <li>
-            <a href="">Пентхаусы</a>
+            <nuxt-link to="/features">Пентхаусы</nuxt-link>
           </li>
           <li>
-            <a href="">Выбрать квартиру</a>
+            <nuxt-link to="/features">Выбрать квартиру</nuxt-link>
           </li>
         </ul>
       </div>
@@ -50,7 +50,8 @@
       width: 100%;
       height: 70px;
       top: 25px;
-      left: 25px;
+      left: -35px;
+      z-index: 1;
     }
 
     &::after {
@@ -61,14 +62,15 @@
       width: 100%;
       height: 70px;
       top: 25px;
-      right: 25px;
+      right: -35px;
+      z-index: 1;
     }
 
     &__container {
       /*max-width: 1800px;*/
       width: 100%;
-      /*padding: 0 60px;*/
-      padding: 0 125px;
+      padding: 0 60px;
+      /*padding: 0 125px;*/
       margin: 0 auto;
       display: flex;
       align-items: center;
