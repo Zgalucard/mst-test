@@ -12,7 +12,7 @@
 
       <div class="main__content">
         <div class="main__text">
-          <transition-group tag="div" name="content">
+          <transition-group tag="div" name="alt-content">
             <h1 :key="currentContentView.title">{{currentContentView.title}}</h1>
             <p :key="currentContentView.text">
               {{currentContentView.text | linkAtTheEnd(110) }}
@@ -24,10 +24,9 @@
           </div>
         </div>
       </div>
-      <transition-group tag="div" name="img" class="main__illustration">
+      <transition-group tag="div" name="alt-img" class="main__illustration">
         <img :key="currentContentView.img" :src="currentContentView.img" alt="">
       </transition-group>
-
     </div>
   </div>
 </template>
@@ -137,6 +136,9 @@
         // return value
       }
     },
+    beforeUpdate() {
+      this.switchAnimation()
+    },
     updated() {
       this.switchAnimation()
     },
@@ -147,6 +149,48 @@
 </script>
 
 <style lang="scss">
+  .alt-content-enter-active, .alt-content-leave-active {
+    transition: transform .5s, opacity 1s;
+  }
+
+  .alt-content-enter, .alt-content-leave-to /* .fade-leave-active до версии 2.1.8 */
+  {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  p.alt-content-leave-active {
+    bottom: 0;
+  }
+
+  .alt-content-leave-active {
+    /*display: none;*/
+    transform: translateY(0);
+    position: absolute;
+    opacity: 0;
+  }
+
+  //анимация картинки через height
+  .alt-img-enter-active, .alt-img-leave-active {
+    transition: opacity .5s, transform .5s;
+  }
+
+  .alt-img-enter /* .fade-leave-active до версии 2.1.8 */
+  {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  .alt-img-leave-to {
+    /*opacity: 1;*/
+  }
+
+  .alt-img-leave-active {
+    /*display: none;*/
+  }
+
+  //
+
   .content-enter-active, .content-leave-active {
     transition: transform .5s, opacity 1s;
   }
