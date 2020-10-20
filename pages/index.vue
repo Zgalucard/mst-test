@@ -15,7 +15,8 @@
           <transition-group tag="div" name="content">
             <h1 :key="currentContentView.title">{{currentContentView.title}}</h1>
             <p :key="currentContentView.text">
-              {{currentContentView.text}}
+              {{currentContentView.text | linkAtTheEnd(110) }}
+              <nuxt-link to="/" v-show="currentContentView.text.length > 109">...</nuxt-link>
             </p>
           </transition-group>
           <div class="main__pages">
@@ -90,7 +91,8 @@
         mainMenuItems: mainMenuItems,
         mainContentItems: mainContentItems,
         currentContentView: mainContentItems[0],
-        activeIndex: 0
+        activeIndex: 0,
+        alternativeAnimation: false
       }
     },
     methods: {
@@ -98,6 +100,48 @@
         this.currentContentView = mainContentItems[index]
         this.activeIndex = index
       },
+
+      switchAnimation() {
+        let mainList = document.querySelectorAll('.main__menu ul li')
+
+        let activeIndex
+        let activeItem
+
+        for (const [index, item] of mainList.entries()) {
+          if (item.classList.contains('active-item')) {
+            activeItem = item
+            activeIndex = index
+          }
+
+          item.addEventListener('mouseover', function (e) {
+            if (activeIndex < index) {
+              this.alternativeAnimation = true
+              console.log(this.alternativeAnimation);
+            }
+            if (activeIndex > index) {
+              this.alternativeAnimation = false
+              console.log(this.alternativeAnimation);
+            }
+          })
+        }
+      }
+    },
+    filters: {
+      linkAtTheEnd: function (value, length) {
+        if (!value) return ''
+
+        return value.length > length ? value.slice(0, length) : value
+
+        // value = value.toString()
+        // value = value.slice(-value.length) + '...'
+        // return value
+      }
+    },
+    updated() {
+      this.switchAnimation()
+    },
+    mounted() {
+      this.switchAnimation()
     }
   }
 </script>
@@ -113,7 +157,7 @@
     opacity: 0;
   }
 
-  p.content-leave-active{
+  p.content-leave-active {
     bottom: 0;
   }
 
@@ -123,18 +167,24 @@
     position: absolute;
     opacity: 0;
   }
+
   //анимация картинки через height
   .img-enter-active, .img-leave-active {
-    transition: opacity .5s;
+    transition: opacity .5s, transform .5s;
   }
 
-  .img-enter, .img-leave-to /* .fade-leave-active до версии 2.1.8 */
+  .img-enter /* .fade-leave-active до версии 2.1.8 */
   {
     opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  .img-leave-to {
+    /*opacity: 1;*/
   }
 
   .img-leave-active {
-    display: none;
+    /*display: none;*/
   }
 
   .main {
@@ -143,6 +193,7 @@
     &__container {
       display: flex;
       height: 100%;
+      overflow: hidden;
     }
 
     &__menu {
@@ -225,7 +276,7 @@
       width: 100%;
       position: relative;
 
-      div{
+      div {
         position: relative;
       }
 
@@ -238,6 +289,16 @@
         font-size: 18px;
       }
 
+      a {
+        width: 28px;
+        height: 28px;
+        background: #262525;
+        color: #fff;
+        display: inline-flex;
+        justify-content: center;
+        margin-left: 7px;
+      }
+
       span {
         font-size: 17px;
       }
@@ -248,10 +309,18 @@
     }
 
     &__illustration {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     }
   }

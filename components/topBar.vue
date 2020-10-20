@@ -6,6 +6,7 @@
       </div>
       <div class="header__menu">
         <ul>
+          <div class="header__line"></div>
           <li>
             <nuxt-link exact active-class="active-link" to="/">О комплексе</nuxt-link>
           </li>
@@ -30,6 +31,68 @@
 <script>
   export default {
     name: 'topbar',
+    data() {
+      return {}
+    },
+    methods: {
+      // headerUnderline() {
+      //   let headerEl = document.querySelectorAll('.header__menu ul li a')
+      //   // console.log(headerEl)
+      //   let line = document.querySelector('.header__line')
+      //
+      //   let activeIndex
+      //   let activeItem
+      //
+      //   for (const [index, item] of headerEl.entries()) {
+      //     if (item.classList.contains('active-link')) {
+      //       activeItem = item
+      //       activeIndex = index
+      //       line.style.left = '' + 25 * (activeIndex + 1) + '%';
+      //     }
+      //   }
+      //
+      //   let smActive = []
+      //   let bgActive = []
+      //
+      //   for (const [index, item] of headerEl.entries()) {
+      //     // console.log(index, item)
+      //     if (activeIndex < index) {
+      //       bgActive.push(index)
+      //
+      //       for (const [bgInd, bgIt] of bgActive.entries()) {
+      //         item.addEventListener('mouseover', function (e) {
+      //           // console.log(item)
+      //           //                item.classList.add('active-hover')
+      //           line.style.width = '' + 25 * (bgInd + 1) + '%';
+      //         })
+      //       }
+      //     }
+      //     if (activeIndex > index) {
+      //       smActive.push(index)
+      //
+      //       for (const [smInd, smIt] of smActive.entries()) {
+      //         item.addEventListener('mouseover', function (e) {
+      //           //                item.classList.add('active-hover')
+      //           line.style.width = '' + 25 * (smInd + 1) + '%';
+      //           line.style.left = '' + 25 * (smInd) + '%';
+      //           if (smInd === 0) {
+      //             line.style.width = '' + 25 * (smInd + 3) + '%';
+      //           }
+      //         })
+      //       }
+      //     }
+      //
+      //     item.addEventListener('mouseout', function (e) {
+      //       //                item.classList.add('active-hover')
+      //       line.style.width = '' + 0 + '%';
+      //       line.style.left = '' + 25 * (activeIndex + 1) + '%';
+      //     })
+      //   }
+      // }
+    },
+    mounted() {
+      // this.headerUnderline()
+    }
   }
 </script>
 
@@ -80,15 +143,16 @@
 
     &__logo {
       padding-right: 20px;
-      h1{
+
+      h1 {
         font-weight: bold;
         font-size: 17px;
         line-height: 21px;
       }
     }
 
-    .active-link{
-      &::before{
+    .active-link {
+      &::before {
         content: '';
         position: absolute;
         width: 100%;
@@ -99,14 +163,32 @@
       }
     }
 
+    &__line {
+      position: absolute;
+      height: 4px;
+      width: 0%;
+      background: #D88F5E;
+      bottom: -7px;
+      left: 0;
+
+      transition: width .2s ease-out, left .2s ease-out;
+    }
+
     &__menu {
       max-width: 558px;
       width: 100%;
+
       ul {
         display: flex;
         justify-content: space-between;
+        position: relative;
 
         li {
+          display: flex;
+          flex: 0 0 25%;
+          justify-content: center;
+          position: relative;
+
           a {
             position: relative;
             font-family: 'Gilroy', sans-serif;
@@ -122,7 +204,8 @@
 
     &__contact {
       padding-left: 20px;
-      h1{
+
+      h1 {
         font-weight: bold;
         font-size: 17px;
         line-height: 21px;
