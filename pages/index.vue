@@ -9,10 +9,16 @@
           </li>
         </ul>
       </div>
-
       <div class="main__content">
-        <div class="main__text">
-          <transition-group tag="div" name="alt-content">
+        <div class="main__text main__text-alter">
+          <transition-group tag="div" name="alt-content" v-if="!alternativeAnimation">
+            <h1 :key="currentContentView.title">{{currentContentView.title}}</h1>
+            <p :key="currentContentView.text">
+              {{currentContentView.text | linkAtTheEnd(110) }}
+              <nuxt-link to="/" v-show="currentContentView.text.length > 109">...</nuxt-link>
+            </p>
+          </transition-group>
+          <transition-group tag="div" name="content" v-if="alternativeAnimation">
             <h1 :key="currentContentView.title">{{currentContentView.title}}</h1>
             <p :key="currentContentView.text">
               {{currentContentView.text | linkAtTheEnd(110) }}
@@ -24,7 +30,10 @@
           </div>
         </div>
       </div>
-      <transition-group tag="div" name="alt-img" class="main__illustration">
+      <transition-group tag="div" name="alt-img" class="main__illustration" v-if="!alternativeAnimation">
+        <img :key="currentContentView.img" :src="currentContentView.img" alt="">
+      </transition-group>
+      <transition-group tag="div" name="img" class="main__illustration" v-if="alternativeAnimation">
         <img :key="currentContentView.img" :src="currentContentView.img" alt="">
       </transition-group>
     </div>
@@ -98,6 +107,7 @@
       switchContent(item, index) {
         this.currentContentView = mainContentItems[index]
         this.activeIndex = index
+
       },
 
       switchAnimation() {
@@ -112,18 +122,18 @@
             activeIndex = index
           }
 
-          item.addEventListener('mouseover', function (e) {
+          item.addEventListener('mouseover', (e) => {
             if (activeIndex < index) {
               this.alternativeAnimation = true
-              console.log(this.alternativeAnimation);
+              // console.log(this.alternativeAnimation);
             }
             if (activeIndex > index) {
               this.alternativeAnimation = false
-              console.log(this.alternativeAnimation);
+              // console.log(this.alternativeAnimation);
             }
           })
         }
-      }
+      },
     },
     filters: {
       linkAtTheEnd: function (value, length) {
@@ -144,11 +154,14 @@
     },
     mounted() {
       this.switchAnimation()
+
+      // setInterval(() => console.log(this.alternativeAnimation), 1000)
     }
   }
 </script>
 
 <style lang="scss">
+  //альтернативаная анимация
   .alt-content-enter-active, .alt-content-leave-active {
     transition: transform .5s, opacity 1s;
   }
@@ -170,7 +183,7 @@
     opacity: 0;
   }
 
-  //анимация картинки через height
+  //анимация картинки
   .alt-img-enter-active, .alt-img-leave-active {
     transition: opacity .5s, transform .5s;
   }
@@ -189,7 +202,7 @@
     /*display: none;*/
   }
 
-  //
+  //обычная анимация
 
   .content-enter-active, .content-leave-active {
     transition: transform .5s, opacity 1s;
